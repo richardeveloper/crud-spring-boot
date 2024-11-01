@@ -3,7 +3,7 @@ package br.com.crud.services.impl;
 import br.com.crud.entities.ProdutoEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ProdutoRepository;
-import br.com.crud.requests.ProdutoResquest;
+import br.com.crud.models.requests.ProdutoResquest;
 import br.com.crud.services.ProdutoService;
 
 import java.util.List;

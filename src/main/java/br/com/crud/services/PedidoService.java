@@ -1,7 +1,7 @@
 package br.com.crud.services;
 
 import br.com.crud.entities.PedidoEntity;
-import br.com.crud.requests.PedidoResquest;
+import br.com.crud.models.requests.PedidoResquest;
 
 import java.util.List;
 

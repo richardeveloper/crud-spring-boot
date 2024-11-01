@@ -1,8 +1,8 @@
 package br.com.crud.controllers;
 
 import br.com.crud.entities.ClienteEntity;
-import br.com.crud.requests.ClienteResquest;
-import br.com.crud.responses.ClienteResponse;
+import br.com.crud.models.requests.ClienteResquest;
+import br.com.crud.models.responses.ClienteResponse;
 import br.com.crud.services.ClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;

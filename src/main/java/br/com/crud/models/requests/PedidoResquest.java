@@ -1,4 +1,4 @@
-package br.com.crud.requests;
+package br.com.crud.models.requests;
 
 import jakarta.validation.constraints.NotNull;
 

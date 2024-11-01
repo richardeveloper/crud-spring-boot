@@ -3,7 +3,7 @@ package br.com.crud.services.impl;
 import br.com.crud.entities.ClienteEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
-import br.com.crud.requests.ClienteResquest;
+import br.com.crud.models.requests.ClienteResquest;
 import br.com.crud.services.ClienteService;
 
 import java.util.List;

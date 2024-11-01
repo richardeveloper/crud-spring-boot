@@ -24,13 +24,11 @@ public class ApiError {
 
   private String timestamp;
 
-  public ApiError(String error, Integer status, String message, String path,
-    LocalDateTime timestamp) {
-
+  public ApiError(String error, Integer status, String message, String path) {
     this.error = error;
     this.status = status;
     this.message = message;
     this.path = path;
-    this.timestamp = timestamp.format(FORMATTER);
+    this.timestamp = LocalDateTime.now().format(FORMATTER);
   }
 }

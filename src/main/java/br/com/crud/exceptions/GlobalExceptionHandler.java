@@ -5,8 +5,6 @@ import br.com.crud.exceptions.models.FieldError;
 import br.com.crud.exceptions.models.ValidationApiError;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.time.LocalDateTime;
-
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,7 +24,7 @@ public class GlobalExceptionHandler {
     String error = "Erro no processamento da solicitação.";
     String path = req.getRequestURI();
 
-    ApiError apiError = new ApiError(error, status.value(), message, path, LocalDateTime.now());
+    ApiError apiError = new ApiError(error, status.value(), message, path);
 
     return new ResponseEntity<>(apiError, status);
   }
@@ -43,7 +41,7 @@ public class GlobalExceptionHandler {
       ? "Não foi possível apagar o " + modelo + " informado pois existem pedidos vínculados a ele."
       : ex.getMessage();
 
-    ApiError apiError = new ApiError(error, status.value(), message, path, LocalDateTime.now());
+    ApiError apiError = new ApiError(error, status.value(), message, path);
 
     return new ResponseEntity<>(apiError, status);
   }
@@ -60,7 +58,7 @@ public class GlobalExceptionHandler {
       .map(errorField -> new FieldError(errorField.getField(), errorField.getDefaultMessage()))
       .toList();
 
-    ValidationApiError apiError = new ValidationApiError(error, status.value(), path, LocalDateTime.now(), invalidFields);
+    ValidationApiError apiError = new ValidationApiError(error, status.value(), path, invalidFields);
 
     return new ResponseEntity<>(apiError, status);
   }

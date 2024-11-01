@@ -26,13 +26,11 @@ public class ValidationApiError {
 
   private List<FieldError> invalidFields;
 
-  public ValidationApiError(String error, Integer status, String path, LocalDateTime timestamp,
-    List<FieldError> invalidFields) {
-
+  public ValidationApiError(String error, Integer status, String path, List<FieldError> invalidFields) {
     this.error = error;
     this.status = status;
     this.invalidFields = invalidFields;
     this.path = path;
-    this.timestamp = timestamp.format(FORMATTER);
+    this.timestamp = LocalDateTime.now().format(FORMATTER);
   }
 }

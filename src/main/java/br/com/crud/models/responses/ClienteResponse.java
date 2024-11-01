@@ -1,4 +1,4 @@
-package br.com.crud.responses;
+package br.com.crud.models.responses;
 
 import br.com.crud.entities.ClienteEntity;
 

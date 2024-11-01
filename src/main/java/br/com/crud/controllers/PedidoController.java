@@ -1,8 +1,8 @@
 package br.com.crud.controllers;
 
 import br.com.crud.entities.PedidoEntity;
-import br.com.crud.requests.PedidoResquest;
-import br.com.crud.responses.PedidoResponse;
+import br.com.crud.models.requests.PedidoResquest;
+import br.com.crud.models.responses.PedidoResponse;
 import br.com.crud.services.PedidoService;
 
 import io.swagger.v3.oas.annotations.Operation;

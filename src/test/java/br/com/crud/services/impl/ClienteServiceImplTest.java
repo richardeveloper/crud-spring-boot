@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import br.com.crud.entities.ClienteEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
-import br.com.crud.requests.ClienteResquest;
+import br.com.crud.models.requests.ClienteResquest;
 
 import java.util.List;
 import java.util.Optional;

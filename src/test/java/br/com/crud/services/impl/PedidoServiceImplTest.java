@@ -17,7 +17,7 @@ import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
 import br.com.crud.repositories.PedidoRepository;
 import br.com.crud.repositories.ProdutoRepository;
-import br.com.crud.requests.PedidoResquest;
+import br.com.crud.models.requests.PedidoResquest;
 
 import java.math.BigDecimal;
 
