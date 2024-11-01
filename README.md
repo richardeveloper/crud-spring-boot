@@ -41,8 +41,11 @@ Para executar a aplicação são necessárias as seguintes tecnologias:
 > - Maven
 > - PostgreSQL
 
-Para conexão com banco de dados, é necessário exportar as seguintes váriaveis de ambientes na IDE ou na máquina, exemplo: 
-> - export DB_URL="jdbc:postgresql://localhost:8080/database"
+<p align="justify"> 
+A conexão com banco de dados é feita através das propriedades <b>datasource</b> do arquivo application.yaml, alterando manualmente ou exportando as váriaveis de ambientes na IDE ou em sua máquina, como por exemplo: 
+</p>
+
+> - export DB_URL="jdbc:postgresql://localhost:5432/database"
 > - export DB_USERNAME="postgres"
 > - export DB_PASSWORD="postgres"
 
