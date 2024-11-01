@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: crud-spring-boot
+    description: Aplicação para gerenciar o cadastro de produtos.
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crud_spring
+    username: postgres
+    password: richardeveloper
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+  api-docs:
+    path: /api-docs
