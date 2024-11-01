@@ -4,6 +4,7 @@
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 </div>
 
@@ -33,18 +34,16 @@ Deve ser implementado um Service para cada classe de modelo. As classes Service 
 Os controllers devem implementar endpoints para cada serviço implementado. O Swagger deve ser incluído no projeto e usado para demonstrar o funcionamento da API.
 </p>
 
-## Passo a passo execução:
+## Execução
 
-> Tecnologias:
+É necessário as seguintes tecnologias para execução da aplicação:
 > - Java 17
-> - Maven
-> - Postgres
+> - PostgreSQL
 
-> Exportar as váriaveis de ambientes na IDE ou na máquina:
-> 
-> export DB_URL="jdbc:postgresql://localhost:8080/database"
-> export DB_USERNAME="postgres"
-> export DB_PASSWORD="postgres"
+Para conexão com banco de dados, é necessário exportar as seguintes váriaveis de ambientes na IDE ou na máquina, exemplo: 
+> - export DB_URL="jdbc:postgresql://localhost:8080/database"
+> - export DB_USERNAME="postgres"
+> - export DB_PASSWORD="postgres"
 
-> Swagger
-> Link: http://localhost:8080/swagger-ui
+Documentação da API:
+> - http://localhost:8080/swagger-ui
