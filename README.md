@@ -12,6 +12,7 @@
 <p align="justify">
 Implementar um backend utilizando Spring Boot para fornecer serviços de uma API RESTful. O modelo deve ser composto das três entidades e um banco de dados da sua escolha deve ser configurado no projeto para persistência:
 </p>
+
 > - Cliente (id, nome, email, contato)
 > - Produto (id, nome, preco)
 > - Pedido (id, cliente, List<Long> produtos)
