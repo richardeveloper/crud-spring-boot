@@ -36,8 +36,9 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 
 ## Execução
 
-É necessário as seguintes tecnologias para execução da aplicação:
-> - Java 17
+Para executar a aplicação são necessárias as seguintes tecnologias:
+> - Java 17 ou superior
+> - Maven
 > - PostgreSQL
 
 Para conexão com banco de dados, é necessário exportar as seguintes váriaveis de ambientes na IDE ou na máquina, exemplo: 
@@ -45,5 +46,5 @@ Para conexão com banco de dados, é necessário exportar as seguintes váriavei
 > - export DB_USERNAME="postgres"
 > - export DB_PASSWORD="postgres"
 
-Documentação da API:
+Após execução da aplicação com sucesso, a documentação se encontra no link:
 > - http://localhost:8080/swagger-ui
