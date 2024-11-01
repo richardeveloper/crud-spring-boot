@@ -77,8 +77,9 @@ public class ClienteController {
 
   @Operation(summary = "Apagar cliente existente")
   @DeleteMapping(value = "/{id}")
-  public void apagarCliente(@PathVariable Long id) {
+  public ResponseEntity<Void> apagarCliente(@PathVariable Long id) {
     this.produtoService.apagarCliente(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
 }

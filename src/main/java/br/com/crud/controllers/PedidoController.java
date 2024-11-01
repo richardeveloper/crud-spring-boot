@@ -76,8 +76,9 @@ public class PedidoController {
 
   @Operation(summary = "Apagar pedido existente")
   @DeleteMapping(value = "/{id}")
-  public void apagarPedido(@PathVariable Long id) {
+  public ResponseEntity<Void> apagarPedido(@PathVariable Long id) {
     this.produtoService.apagarPedido(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
 }
