@@ -1,4 +1,4 @@
-# ADS1241 - Desenvolvimento de API REST utilizando Spring Boot
+# ADS1241 - Atividade 09 - Criação de API REST utilizando Spring Boot
 
 <div align="center">
 
