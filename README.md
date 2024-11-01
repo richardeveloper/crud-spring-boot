@@ -32,3 +32,19 @@ Deve ser implementado um Service para cada classe de modelo. As classes Service 
 <p align="justify"> 
 Os controllers devem implementar endpoints para cada serviço implementado. O Swagger deve ser incluído no projeto e usado para demonstrar o funcionamento da API.
 </p>
+
+## Passo a passo execução:
+
+> Tecnologias:
+> - Java 17
+> - Maven
+> - Postgres
+
+> Exportar as váriaveis de ambientes na IDE ou na máquina:
+> 
+> export DB_URL="jdbc:postgresql://localhost:8080/database"
+> export DB_USERNAME="postgres"
+> export DB_PASSWORD="postgres"
+
+> Swagger
+> Link: http://localhost:8080/swagger-ui

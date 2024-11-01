@@ -5,9 +5,9 @@ spring:
     description: Aplicação para gerenciar o cadastro de produtos.
 # DATABASE CONFIGS
   datasource:
-    url: jdbc:postgresql://localhost:5432/crud_spring
-    username: postgres
-    password: richardeveloper
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

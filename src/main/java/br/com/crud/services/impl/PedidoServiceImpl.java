@@ -111,7 +111,8 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     if (!produtosNaoEncontrados.isEmpty()) {
-      throw new ServiceException(String.format("Os produtos de id %s não foram identificados.", Arrays.toString(produtosNaoEncontrados.toArray())));
+      throw new ServiceException(String.format("Os produtos de id %s não foram identificados.",
+        Arrays.toString(produtosNaoEncontrados.toArray())));
     }
 
     return produtoEntities;
