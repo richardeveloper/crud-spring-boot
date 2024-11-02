@@ -34,21 +34,21 @@ Deve ser implementado um Service para cada classe de modelo. As classes Service 
 Os controllers devem implementar endpoints para cada serviço implementado. O Swagger deve ser incluído no projeto e usado para demonstrar o funcionamento da API.
 </p>
 
-### Rodar aplicação
-
-Requisitos para execução:
-> - Java 17 ou Superior
+> [!TIP]
+> 
+> ### Rodar aplicação
+>
+> **Requisitos:**
+> - Java 17 ou superior
 > - PostgreSQL
-
-<p align="justify"> 
-A conexão com banco de dados é feita através das propriedades <b>datasource</b> do arquivo application.yaml, alterando manualmente ou exportando as váriaveis de ambientes, como por exemplo: 
-</p>
-
-```
-export DB_URL="jdbc:postgresql://localhost:5432/database"
-export DB_USERNAME="postgres"
-export DB_PASSWORD="postgres"
-```
-
-Após execução da aplicação, a documentação se encontra no link:
-> <a href="http://localhost:8080/swagger-ui" style="text-decoration: none;">Swagger UI</a>
+>
+> **Variáveis para conexão com banco de dados:**
+>
+> ```
+> export DB_URL="jdbc:postgresql://localhost:5432/database"
+> export DB_USERNAME="postgres"
+> export DB_PASSWORD="postgres"
+> ```
+>
+> **Documentação da API:**
+> > <a href="" style="text-decoration: none;">Swagger UI</a>
