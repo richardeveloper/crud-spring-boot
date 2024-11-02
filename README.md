@@ -36,12 +36,12 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 
 ### Rodar aplicação
 
-Para executar a aplicação são necessárias os seguintes requisitos:
-- Java 17 ou Superior
-- PostgreSQL
+Requisitos para execução:
+> - Java 17 ou Superior
+> - PostgreSQL
 
 <p align="justify"> 
-A conexão com banco de dados é feita através das propriedades <b>datasource</b> do arquivo application.yaml, alterando manualmente ou exportando as váriaveis de ambientes na IDE ou em sua máquina, como por exemplo: 
+A conexão com banco de dados é feita através das propriedades <b>datasource</b> do arquivo application.yaml, alterando manualmente ou exportando as váriaveis de ambientes, como por exemplo: 
 </p>
 
 ```
@@ -50,5 +50,5 @@ export DB_USERNAME="postgres"
 export DB_PASSWORD="postgres"
 ```
 
-Após execução da aplicação com sucesso, a documentação se encontra no link:
+Após execução da aplicação, a documentação se encontra no link:
 > <a href="http://localhost:8080/swagger-ui" style="text-decoration: none;">Swagger UI</a>
