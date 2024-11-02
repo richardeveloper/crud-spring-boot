@@ -16,7 +16,7 @@ Implementar um backend utilizando Spring Boot para fornecer serviços de uma API
 
 > - Cliente (Long id, String nome, String email, String telefone)
 > - Produto (Long id, String nome, Double preco)
-> - Pedido (Long id, Cliente cliente, List<Produto> produtos)
+> - Pedido (Long id, Cliente cliente, List<< Produto >> produtos)
 
 <p align="justify"> 
 O backend deve implementar os Repositories JPA para cada classe do modelo. Todos os repositories devem implementar um método adicional de busca: ClienteRepository e ProdutoRepository devem implementar a busca por nome de cliente ou produto, respectivamente. PedidoRepository deve permitir pesquisar por id de Cliente ou id de Produto.
@@ -45,9 +45,11 @@ Para executar a aplicação são necessárias as seguintes tecnologias:
 A conexão com banco de dados é feita através das propriedades <b>datasource</b> do arquivo application.yaml, alterando manualmente ou exportando as váriaveis de ambientes na IDE ou em sua máquina, como por exemplo: 
 </p>
 
-> - export DB_URL="jdbc:postgresql://localhost:5432/database"
-> - export DB_USERNAME="postgres"
-> - export DB_PASSWORD="postgres"
+```
+export DB_URL="jdbc:postgresql://localhost:5432/database"
+export DB_USERNAME="postgres"
+export DB_PASSWORD="postgres"
+```
 
 Após execução da aplicação com sucesso, a documentação se encontra no link:
-> - http://localhost:8080/swagger-ui
+> <a href="http://localhost:8080/swagger-ui" style="text-decoration: none;">Swagger UI</a>
