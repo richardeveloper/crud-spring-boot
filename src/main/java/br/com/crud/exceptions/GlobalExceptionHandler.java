@@ -18,23 +18,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(value = ServiceException.class)
-  public ResponseEntity<ApiError> handleServiceException(HttpServletRequest req, ServiceException ex) {
+  @ExceptionHandler({ ServiceException.class, HttpMessageNotReadableException.class })
+  public ResponseEntity<ApiError> handleDefaultException(HttpServletRequest req, RuntimeException ex) {
     String message = ex.getMessage();
     HttpStatus status = HttpStatus.BAD_REQUEST;
-    String errorMessage = "Não foi possível completar a ação solicitada.";
-    String path = req.getRequestURI();
-
-    ApiError error = new ApiError(errorMessage, status.value(), message, path);
-
-    return new ResponseEntity<>(error, status);
-  }
-
-  @ExceptionHandler(value = HttpMessageNotReadableException.class)
-  public ResponseEntity<ApiError> handleHttpMessageNotReadableException(HttpServletRequest req, HttpMessageNotReadableException ex) {
-    String message = ex.getMessage();
-    HttpStatus status = HttpStatus.BAD_REQUEST;
-    String errorMessage = "Falha ao processar a sua solicitação.";
+    String errorMessage = "Não foi possível completar a solicitação.";
     String path = req.getRequestURI();
 
     ApiError error = new ApiError(errorMessage, status.value(), message, path);
@@ -46,7 +34,7 @@ public class GlobalExceptionHandler {
   public ResponseEntity<ApiError> handleDataIntegrityViolationException(HttpServletRequest req, DataIntegrityViolationException ex) {
     String message = recoverViolationMessage(req, ex);
     HttpStatus status = HttpStatus.BAD_REQUEST;
-    String errorMessage = "Erro durante processamento da solicitação.";
+    String errorMessage = "Ação necessária para completar a solicitação.";
     String path = req.getRequestURI();
 
     ApiError error = new ApiError(errorMessage, status.value(), message, path);
@@ -57,7 +45,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(value = MethodArgumentNotValidException.class)
   public ResponseEntity<ValidationApiError> handleMethodArgumentNotValidException(HttpServletRequest req, MethodArgumentNotValidException ex) {
     HttpStatus status = HttpStatus.BAD_REQUEST;
-    String errorMessage = "Verifique os campos com formatos inválidos.";
+    String errorMessage = "A solicitação possui campos com formatos inválidos.";
     String path = req.getRequestURI();
 
     List<FieldError> invalidFields = ex.getBindingResult()
