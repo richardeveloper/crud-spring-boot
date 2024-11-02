@@ -40,8 +40,9 @@ public class PedidoServiceImpl implements PedidoService {
     List<ProdutoEntity> produtoEntities = recuperarProdutos(resquest);
 
     PedidoEntity pedidoEntity = new PedidoEntity();
-    pedidoEntity.setClienteEntity(clienteEntity);
-    pedidoEntity.setProdutoEntities(produtoEntities);
+    pedidoEntity.setCliente(clienteEntity);
+    pedidoEntity.setProdutos(produtoEntities);
+    pedidoEntity.calcularValorTotal();
 
     return pedidoRepository.save(pedidoEntity);
   }
@@ -60,7 +61,7 @@ public class PedidoServiceImpl implements PedidoService {
   public List<PedidoEntity> buscarPedidosPorCliente(Long clienteId) {
     ClienteEntity clienteEntity = buscarClientePorId(clienteId);
 
-    return pedidoRepository.findByClienteEntity(clienteEntity);
+    return pedidoRepository.findByCliente(clienteEntity);
   }
 
   @Override
@@ -71,7 +72,8 @@ public class PedidoServiceImpl implements PedidoService {
 
     List<ProdutoEntity> produtoEntities = recuperarProdutos(resquest);
 
-    pedidoEntity.setProdutoEntities(produtoEntities);
+    pedidoEntity.setProdutos(produtoEntities);
+    pedidoEntity.calcularValorTotal();
 
     return pedidoRepository.save(pedidoEntity);
   }

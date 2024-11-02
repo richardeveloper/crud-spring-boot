@@ -27,6 +27,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -73,8 +74,9 @@ class PedidoServiceImplTest {
 
     pedidoEntity = new PedidoEntity();
     pedidoEntity.setId(pedidoId);
-    pedidoEntity.setClienteEntity(clienteEntity);
-    pedidoEntity.setProdutoEntities(produtoEntities);
+    pedidoEntity.setCliente(clienteEntity);
+    pedidoEntity.setProdutos(produtoEntities);
+    pedidoEntity.calcularValorTotal();
   }
 
   @Test
@@ -103,15 +105,17 @@ class PedidoServiceImplTest {
 
     PedidoEntity pedidoEntity = pedidoService.cadastrarPedido(resquest);
 
-    assertNotNull(pedidoEntity.getClienteEntity());
-    assertEquals("Cliente", pedidoEntity.getClienteEntity().getNome());
-    assertEquals("teste@email.com", pedidoEntity.getClienteEntity().getEmail());
-    assertEquals("99999999999", pedidoEntity.getClienteEntity().getTelefone());
+    assertNotNull(pedidoEntity.getCliente());
+    assertEquals("Cliente", pedidoEntity.getCliente().getNome());
+    assertEquals("teste@email.com", pedidoEntity.getCliente().getEmail());
+    assertEquals("99999999999", pedidoEntity.getCliente().getTelefone());
 
-    assertNotNull(pedidoEntity.getProdutoEntities());
-    assertFalse(pedidoEntity.getProdutoEntities().isEmpty());
-    assertEquals("Produto", pedidoEntity.getProdutoEntities().get(0).getNome());
-    assertEquals(new BigDecimal("12.99"), pedidoEntity.getProdutoEntities().get(0).getPreco());
+    assertNotNull(pedidoEntity.getProdutos());
+    assertFalse(pedidoEntity.getProdutos().isEmpty());
+    assertEquals("Produto", pedidoEntity.getProdutos().get(0).getNome());
+    assertEquals(new BigDecimal("12.99"), pedidoEntity.getProdutos().get(0).getPreco());
+
+    assertEquals(new BigDecimal("12.99"), pedidoEntity.getValorTotal());
   }
 
   @Test
@@ -136,15 +140,17 @@ class PedidoServiceImplTest {
 
     PedidoEntity pedidoEntity = pedidoService.buscarPedido(pedidoId);
 
-    assertNotNull(pedidoEntity.getClienteEntity());
-    assertEquals("Cliente", pedidoEntity.getClienteEntity().getNome());
-    assertEquals("teste@email.com", pedidoEntity.getClienteEntity().getEmail());
-    assertEquals("99999999999", pedidoEntity.getClienteEntity().getTelefone());
+    assertNotNull(pedidoEntity.getCliente());
+    assertEquals("Cliente", pedidoEntity.getCliente().getNome());
+    assertEquals("teste@email.com", pedidoEntity.getCliente().getEmail());
+    assertEquals("99999999999", pedidoEntity.getCliente().getTelefone());
 
-    assertNotNull(pedidoEntity.getProdutoEntities());
-    assertFalse(pedidoEntity.getProdutoEntities().isEmpty());
-    assertEquals("Produto", pedidoEntity.getProdutoEntities().get(0).getNome());
-    assertEquals(new BigDecimal("12.99"), pedidoEntity.getProdutoEntities().get(0).getPreco());
+    assertNotNull(pedidoEntity.getProdutos());
+    assertFalse(pedidoEntity.getProdutos().isEmpty());
+    assertEquals("Produto", pedidoEntity.getProdutos().get(0).getNome());
+    assertEquals(new BigDecimal("12.99"), pedidoEntity.getProdutos().get(0).getPreco());
+
+    assertEquals(new BigDecimal("12.99"), pedidoEntity.getValorTotal());
   }
 
   @Test
@@ -162,19 +168,21 @@ class PedidoServiceImplTest {
   @Test
   public void buscarPedidos_deveBuscarPedidosPorClienteIdComSucesso() {
     when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteEntity));
-    when(pedidoRepository.findByClienteEntity(clienteEntity)).thenReturn(List.of(pedidoEntity));
+    when(pedidoRepository.findByCliente(clienteEntity)).thenReturn(List.of(pedidoEntity));
 
     List<PedidoEntity> pedidos = pedidoService.buscarPedidosPorCliente(1L);
 
     assertNotNull(pedidos);
     assertFalse(pedidos.isEmpty());
 
-    assertEquals("Cliente", pedidos.get(0).getClienteEntity().getNome());
-    assertEquals("teste@email.com", pedidos.get(0).getClienteEntity().getEmail());
-    assertEquals("99999999999", pedidos.get(0).getClienteEntity().getTelefone());
+    assertEquals("Cliente", pedidos.get(0).getCliente().getNome());
+    assertEquals("teste@email.com", pedidos.get(0).getCliente().getEmail());
+    assertEquals("99999999999", pedidos.get(0).getCliente().getTelefone());
 
-    assertEquals("Produto", pedidos.get(0).getProdutoEntities().get(0).getNome());
-    assertEquals(new BigDecimal("12.99"), pedidos.get(0).getProdutoEntities().get(0).getPreco());
+    assertEquals("Produto", pedidos.get(0).getProdutos().get(0).getNome());
+    assertEquals(new BigDecimal("12.99"), pedidos.get(0).getProdutos().get(0).getPreco());
+
+    assertEquals(new BigDecimal("12.99"), pedidoEntity.getValorTotal());
   }
 
   @Test
@@ -193,9 +201,10 @@ class PedidoServiceImplTest {
     List<ProdutoEntity> produtos = List.of(produto);
 
     PedidoEntity pedido = new PedidoEntity();
-    pedido.setId(pedidoId);
-    pedido.setClienteEntity(cliente);
-    pedido.setProdutoEntities(produtos);
+    pedido.setId(2L);
+    pedido.setCliente(cliente);
+    pedido.setProdutos(produtos);
+    pedido.calcularValorTotal();
 
     List<PedidoEntity> entitites = List.of(pedidoEntity, pedido);
 
@@ -206,23 +215,27 @@ class PedidoServiceImplTest {
     assertNotNull(pedidos);
     assertFalse(pedidos.isEmpty());
 
-    assertEquals("Cliente", pedidos.get(0).getClienteEntity().getNome());
-    assertEquals("teste@email.com", pedidos.get(0).getClienteEntity().getEmail());
-    assertEquals("99999999999", pedidos.get(0).getClienteEntity().getTelefone());
+    assertEquals("Cliente", pedidos.get(0).getCliente().getNome());
+    assertEquals("teste@email.com", pedidos.get(0).getCliente().getEmail());
+    assertEquals("99999999999", pedidos.get(0).getCliente().getTelefone());
 
-    assertNotNull(pedidos.get(0).getProdutoEntities());
-    assertFalse(pedidos.get(0).getProdutoEntities().isEmpty());
-    assertEquals("Produto", pedidos.get(0).getProdutoEntities().get(0).getNome());
-    assertEquals(new BigDecimal("12.99"), pedidos.get(0).getProdutoEntities().get(0).getPreco());
+    assertNotNull(pedidos.get(0).getProdutos());
+    assertFalse(pedidos.get(0).getProdutos().isEmpty());
+    assertEquals("Produto", pedidos.get(0).getProdutos().get(0).getNome());
+    assertEquals(new BigDecimal("12.99"), pedidos.get(0).getProdutos().get(0).getPreco());
 
-    assertEquals("Cliente II", pedidos.get(1).getClienteEntity().getNome());
-    assertEquals("teste2@email.com", pedidos.get(1).getClienteEntity().getEmail());
-    assertEquals("12345678900", pedidos.get(1).getClienteEntity().getTelefone());
+    assertEquals(new BigDecimal("12.99"), pedidos.get(0).getValorTotal());
 
-    assertNotNull(pedidos.get(1).getProdutoEntities());
-    assertFalse(pedidos.get(1).getProdutoEntities().isEmpty());
-    assertEquals("Produto II", pedidos.get(1).getProdutoEntities().get(0).getNome());
-    assertEquals(new BigDecimal("24.99"), pedidos.get(1).getProdutoEntities().get(0).getPreco());
+    assertEquals("Cliente II", pedidos.get(1).getCliente().getNome());
+    assertEquals("teste2@email.com", pedidos.get(1).getCliente().getEmail());
+    assertEquals("12345678900", pedidos.get(1).getCliente().getTelefone());
+
+    assertNotNull(pedidos.get(1).getProdutos());
+    assertFalse(pedidos.get(1).getProdutos().isEmpty());
+    assertEquals("Produto II", pedidos.get(1).getProdutos().get(0).getNome());
+    assertEquals(new BigDecimal("24.99"), pedidos.get(1).getProdutos().get(0).getPreco());
+
+    assertEquals(new BigDecimal("24.99"), pedidos.get(1).getValorTotal());
   }
 
   @Test
@@ -241,25 +254,27 @@ class PedidoServiceImplTest {
     when(produtoRepository.findById(1L)).thenReturn(Optional.of(produtoEntities.get(0)));
     when(produtoRepository.findById(2L)).thenReturn(Optional.of(produto2));
 
-    pedidoEntity.getProdutoEntities().add(produto2);
+    pedidoEntity.getProdutos().add(produto2);
 
     when(pedidoRepository.save(any())).thenReturn(pedidoEntity);
 
     PedidoEntity pedidoEntity = pedidoService.editarPedido(pedidoId, resquest);
 
-    assertNotNull(pedidoEntity.getClienteEntity());
-    assertEquals("Cliente", pedidoEntity.getClienteEntity().getNome());
-    assertEquals("teste@email.com", pedidoEntity.getClienteEntity().getEmail());
-    assertEquals("99999999999", pedidoEntity.getClienteEntity().getTelefone());
+    assertNotNull(pedidoEntity.getCliente());
+    assertEquals("Cliente", pedidoEntity.getCliente().getNome());
+    assertEquals("teste@email.com", pedidoEntity.getCliente().getEmail());
+    assertEquals("99999999999", pedidoEntity.getCliente().getTelefone());
 
-    assertNotNull(pedidoEntity.getProdutoEntities());
-    assertFalse(pedidoEntity.getProdutoEntities().isEmpty());
+    assertNotNull(pedidoEntity.getProdutos());
+    assertFalse(pedidoEntity.getProdutos().isEmpty());
 
-    assertEquals("Produto", pedidoEntity.getProdutoEntities().get(0).getNome());
-    assertEquals(new BigDecimal("12.99"), pedidoEntity.getProdutoEntities().get(0).getPreco());
+    assertEquals("Produto", pedidoEntity.getProdutos().get(0).getNome());
+    assertEquals(new BigDecimal("12.99"), pedidoEntity.getProdutos().get(0).getPreco());
 
-    assertEquals("Produto II", pedidoEntity.getProdutoEntities().get(1).getNome());
-    assertEquals(new BigDecimal("24.99"), pedidoEntity.getProdutoEntities().get(1).getPreco());
+    assertEquals("Produto II", pedidoEntity.getProdutos().get(1).getNome());
+    assertEquals(new BigDecimal("24.99"), pedidoEntity.getProdutos().get(1).getPreco());
+
+    assertEquals(new BigDecimal("37.98"), pedidoEntity.getValorTotal());
   }
 
   @Test

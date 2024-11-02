@@ -2,6 +2,7 @@ package br.com.crud.models.responses;
 
 import br.com.crud.entities.PedidoEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -21,10 +22,13 @@ public class PedidoResponse {
 
   private List<ProdutoResponse> produtos;
 
+  private BigDecimal valorTotal;
+
   public PedidoResponse(PedidoEntity pedidoEntity) {
     this.id = pedidoEntity.getId();
-    this.cliente = new ClienteResponse(pedidoEntity.getClienteEntity());
-    this.produtos = pedidoEntity.getProdutoEntities().stream().map(ProdutoResponse::new).toList();
+    this.cliente = new ClienteResponse(pedidoEntity.getCliente());
+    this.produtos = pedidoEntity.getProdutos().stream().map(ProdutoResponse::new).toList();
+    this.valorTotal = pedidoEntity.getValorTotal();
   }
 
 }
