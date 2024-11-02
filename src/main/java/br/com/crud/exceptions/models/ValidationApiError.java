@@ -14,8 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ValidationApiError {
 
-  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
   private String error;
 
   private Integer status;
@@ -31,6 +29,6 @@ public class ValidationApiError {
     this.status = status;
     this.invalidFields = invalidFields;
     this.path = path;
-    this.timestamp = LocalDateTime.now().format(FORMATTER);
+    this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
   }
 }

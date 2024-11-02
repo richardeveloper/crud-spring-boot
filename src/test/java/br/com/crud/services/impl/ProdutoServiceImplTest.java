@@ -104,7 +104,7 @@ class ProdutoServiceImplTest {
     ServiceException exception = assertThrows(ServiceException.class,
       () -> produtoService.buscarProdutoPorNome(nome));
 
-    String message = String.format("Não foi encontrado produto com nome parecido a '%s'.", nome);
+    String message = "Não foi encontrado produto com nome parecido a '%s'.".formatted(nome);
 
     assertEquals(exception.getMessage(), message);
   }

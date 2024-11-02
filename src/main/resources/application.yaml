@@ -2,7 +2,6 @@
 spring:
   application:
     name: crud-spring-boot
-    description: Aplicação para gerenciar o cadastro de produtos.
 # DATABASE CONFIGS
   datasource:
     url: ${DB_URL}
@@ -12,9 +11,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
 # DOCUMENTATION CONFIGS
 springdoc:
   swagger-ui:
     path: /swagger-ui
   api-docs:
     path: /api-docs
+# OTHER CONFIGS
+server:
+  port: 8080

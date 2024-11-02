@@ -28,13 +28,13 @@ public class ProdutoServiceImpl implements ProdutoService {
 
   @Override
   public ProdutoEntity buscarProduto(Long id) {
-    return buscarProdutoPorID(id);
+    return buscarProdutoPorId(id);
   }
 
   @Override
   public ProdutoEntity buscarProdutoPorNome(String nome) {
     return produtoRepository.findByNome(nome)
-      .orElseThrow(() -> new ServiceException(String.format("Não foi encontrado produto com nome parecido a '%s'.", nome)));
+      .orElseThrow(() -> new ServiceException("Não foi encontrado produto com nome parecido a '%s'.".formatted(nome)));
   }
 
   @Override
@@ -44,7 +44,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
   @Override
   public ProdutoEntity editarProduto(Long id, ProdutoResquest resquest) {
-    ProdutoEntity produtoEntity = buscarProdutoPorID(id);
+    ProdutoEntity produtoEntity = buscarProdutoPorId(id);
 
     if (resquest.getNome() != null) {
       produtoEntity.setNome(resquest.getNome());
@@ -59,12 +59,12 @@ public class ProdutoServiceImpl implements ProdutoService {
 
   @Override
   public void apagarProduto(Long id) {
-    ProdutoEntity produtoEntity = buscarProdutoPorID(id);
+    ProdutoEntity produtoEntity = buscarProdutoPorId(id);
 
     produtoRepository.delete(produtoEntity);
   }
 
-  private ProdutoEntity buscarProdutoPorID(Long id) {
+  private ProdutoEntity buscarProdutoPorId(Long id) {
     return produtoRepository.findById(id)
       .orElseThrow(() -> new ServiceException("Não foi encontrado produto para o id informado."));
   }

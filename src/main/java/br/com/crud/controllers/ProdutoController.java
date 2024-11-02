@@ -78,6 +78,7 @@ public class ProdutoController {
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> apagarProduto(@PathVariable Long id) {
     this.produtoService.apagarProduto(id);
+
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 

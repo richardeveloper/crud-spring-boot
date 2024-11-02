@@ -12,8 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ApiError {
 
-  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
   private String error;
 
   private Integer status;
@@ -29,6 +27,6 @@ public class ApiError {
     this.status = status;
     this.message = message;
     this.path = path;
-    this.timestamp = LocalDateTime.now().format(FORMATTER);
+    this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
   }
 }

@@ -108,7 +108,7 @@ class ClienteServiceImplTest {
     ServiceException exception = assertThrows(ServiceException.class,
       () -> clienteService.buscarClientePorNome(nome));
 
-    String message = String.format("Não foi encontrado cliente com nome parecido a '%s'.", nome);
+    String message = "Não foi encontrado cliente com nome parecido a '%s'.".formatted(nome);
 
     assertEquals(exception.getMessage(), message);
   }

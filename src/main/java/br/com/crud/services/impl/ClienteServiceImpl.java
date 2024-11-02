@@ -29,13 +29,13 @@ public class ClienteServiceImpl implements ClienteService {
 
   @Override
   public ClienteEntity buscarCliente(Long id) {
-    return buscarClientePorID(id);
+    return buscarClientePorId(id);
   }
 
   @Override
   public ClienteEntity buscarClientePorNome(String nome) {
     return clienteRepository.findByNome(nome)
-      .orElseThrow(() -> new ServiceException(String.format("Não foi encontrado cliente com nome parecido a '%s'.", nome)));
+      .orElseThrow(() -> new ServiceException("Não foi encontrado cliente com nome parecido a '%s'.".formatted(nome)));
   }
 
   @Override
@@ -45,7 +45,7 @@ public class ClienteServiceImpl implements ClienteService {
 
   @Override
   public ClienteEntity editarCliente(Long id, ClienteResquest resquest) {
-    ClienteEntity clienteEntity = buscarClientePorID(id);
+    ClienteEntity clienteEntity = buscarClientePorId(id);
 
     if (resquest.getNome() != null) {
       clienteEntity.setNome(resquest.getNome());
@@ -64,12 +64,12 @@ public class ClienteServiceImpl implements ClienteService {
 
   @Override
   public void apagarCliente(Long id) {
-    ClienteEntity ClienteEntity = buscarClientePorID(id);
+    ClienteEntity ClienteEntity = buscarClientePorId(id);
 
     clienteRepository.delete(ClienteEntity);
   }
 
-  private ClienteEntity buscarClientePorID(Long id) {
+  private ClienteEntity buscarClientePorId(Long id) {
     return clienteRepository.findById(id)
       .orElseThrow(() -> new ServiceException("Não foi encontrado cliente para o id informado."));
   }

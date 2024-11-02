@@ -31,15 +31,10 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(value = DataIntegrityViolationException.class)
   public ResponseEntity<ApiError> handleDataIntegrityViolationException(HttpServletRequest req, DataIntegrityViolationException ex) {
+    String message = recoverViolationMessage(req, ex);
     HttpStatus status = HttpStatus.BAD_REQUEST;
     String error = "Erro no processamento da solicitação.";
     String path = req.getRequestURI();
-
-    String modelo = path.contains("clientes") ? "cliente" : "produto";
-
-    String message = ex.getMessage().contains("violates foreign key constraint")
-      ? "Não foi possível apagar o " + modelo + " informado pois existem pedidos vínculados a ele."
-      : ex.getMessage();
 
     ApiError apiError = new ApiError(error, status.value(), message, path);
 
@@ -61,6 +56,15 @@ public class GlobalExceptionHandler {
     ValidationApiError apiError = new ValidationApiError(error, status.value(), path, invalidFields);
 
     return new ResponseEntity<>(apiError, status);
+  }
+
+  private String recoverViolationMessage(HttpServletRequest req, DataIntegrityViolationException ex) {
+    if (ex.getMessage().contains("violates foreign key")) {
+      String modelo = req.getRequestURI().contains("clientes") ? "cliente" : "produto";
+      return "Não é possível apagar o %s informado pois existem pedidos vínculados a ele.".formatted(modelo);
+    }
+
+    return ex.getMessage();
   }
 
 }

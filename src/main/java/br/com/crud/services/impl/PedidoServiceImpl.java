@@ -13,7 +13,6 @@ import br.com.crud.services.PedidoService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,10 +35,9 @@ public class PedidoServiceImpl implements PedidoService {
       throw new ServiceException("É obrigatório informar os produtos do pedido.");
     }
 
-    ClienteEntity clienteEntity = clienteRepository.findById(resquest.getClienteId())
-      .orElseThrow(() -> new ServiceException("Não foi encontrado cliente para o id informado."));
+    ClienteEntity clienteEntity = buscarClientePorId(resquest.getClienteId());
 
-    List<ProdutoEntity> produtoEntities = validarProdutos(resquest);
+    List<ProdutoEntity> produtoEntities = recuperarProdutos(resquest);
 
     PedidoEntity pedidoEntity = new PedidoEntity();
     pedidoEntity.setClienteEntity(clienteEntity);
@@ -50,7 +48,7 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Override
   public PedidoEntity buscarPedido(Long id) {
-    return buscarPedidoPorID(id);
+    return buscarPedidoPorId(id);
   }
 
   @Override
@@ -60,18 +58,18 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Override
   public List<PedidoEntity> buscarPedidosPorCliente(Long clienteId) {
-    ClienteEntity clienteEntity = buscarClientePorID(clienteId);
+    ClienteEntity clienteEntity = buscarClientePorId(clienteId);
 
     return pedidoRepository.findByClienteEntity(clienteEntity);
   }
 
   @Override
   public PedidoEntity editarPedido(Long id, PedidoResquest resquest) {
-    PedidoEntity pedidoEntity = buscarPedidoPorID(id);
+    PedidoEntity pedidoEntity = buscarPedidoPorId(id);
 
-    buscarClientePorID(resquest.getClienteId());
+    buscarClientePorId(resquest.getClienteId());
 
-    List<ProdutoEntity> produtoEntities = validarProdutos(resquest);
+    List<ProdutoEntity> produtoEntities = recuperarProdutos(resquest);
 
     pedidoEntity.setProdutoEntities(produtoEntities);
 
@@ -80,39 +78,36 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Override
   public void apagarPedido(Long id) {
-    PedidoEntity PedidoEntity = buscarPedidoPorID(id);
+    PedidoEntity PedidoEntity = buscarPedidoPorId(id);
 
     pedidoRepository.delete(PedidoEntity);
   }
 
-  private PedidoEntity buscarPedidoPorID(Long id) {
+  private PedidoEntity buscarPedidoPorId(Long id) {
     return pedidoRepository.findById(id)
       .orElseThrow(() -> new ServiceException("Não foi encontrado pedido para o id informado."));
   }
 
-  private ClienteEntity buscarClientePorID(Long id) {
+  private ClienteEntity buscarClientePorId(Long id) {
     return clienteRepository.findById(id)
       .orElseThrow(() -> new ServiceException("Não foi encontrado cliente para o id informado."));
   }
 
-  private List<ProdutoEntity> validarProdutos(PedidoResquest resquest) {
+  private List<ProdutoEntity> recuperarProdutos(PedidoResquest resquest) {
     List<ProdutoEntity> produtoEntities = new ArrayList<>();
     List<Long> produtosNaoEncontrados = new ArrayList<>();
 
     for (Long produtoId : resquest.getProdutoIds()) {
-      Optional<ProdutoEntity> optProduto = produtoRepository.findById(produtoId);
-
-      if (optProduto.isPresent()) {
-        produtoEntities.add(optProduto.get());
-      }
-      else {
-        produtosNaoEncontrados.add(produtoId);
-      }
+      produtoRepository.findById(produtoId)
+        .ifPresentOrElse(
+          produtoEntities::add,
+          () -> produtosNaoEncontrados.add(produtoId)
+        );
     }
 
     if (!produtosNaoEncontrados.isEmpty()) {
-      throw new ServiceException(String.format("Os produtos de id %s não foram identificados.",
-        Arrays.toString(produtosNaoEncontrados.toArray())));
+      String produtos = Arrays.toString(produtosNaoEncontrados.toArray());
+      throw new ServiceException("Os produtos de id %s não foram identificados.".formatted(produtos));
     }
 
     return produtoEntities;
