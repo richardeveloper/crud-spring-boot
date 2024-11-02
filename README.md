@@ -16,7 +16,7 @@ Implementar um backend utilizando Spring Boot para fornecer serviços de uma API
 
 > - Cliente (Long id, String nome, String email, String telefone)
 > - Produto (Long id, String nome, Double preco)
-> - Pedido (Long id, Cliente cliente, List<< Produto >> produtos)
+> - Pedido (Long id, Cliente cliente, List\<Produto> produtos)
 
 <p align="justify"> 
 O backend deve implementar os Repositories JPA para cada classe do modelo. Todos os repositories devem implementar um método adicional de busca: ClienteRepository e ProdutoRepository devem implementar a busca por nome de cliente ou produto, respectivamente. PedidoRepository deve permitir pesquisar por id de Cliente ou id de Produto.
