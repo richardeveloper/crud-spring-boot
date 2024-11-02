@@ -34,12 +34,11 @@ Deve ser implementado um Service para cada classe de modelo. As classes Service 
 Os controllers devem implementar endpoints para cada serviço implementado. O Swagger deve ser incluído no projeto e usado para demonstrar o funcionamento da API.
 </p>
 
-## Execução
+### Rodar aplicação
 
-Para executar a aplicação são necessárias as seguintes tecnologias:
-> - Java 17 ou superior
-> - Maven
-> - PostgreSQL
+Para executar a aplicação são necessárias os seguintes requisitos:
+- Java 17 ou Superior
+- PostgreSQL
 
 <p align="justify"> 
 A conexão com banco de dados é feita através das propriedades <b>datasource</b> do arquivo application.yaml, alterando manualmente ou exportando as váriaveis de ambientes na IDE ou em sua máquina, como por exemplo: 
