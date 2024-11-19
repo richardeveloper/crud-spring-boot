@@ -50,17 +50,17 @@ public class ClienteController {
 
   @Operation(summary = "Buscar cliente pelo nome")
   @GetMapping(value = "/nome")
-  public ResponseEntity<ClienteResponse> buscarCliente(@RequestParam(value = "nome") String nome) {
-    ClienteEntity entity = this.produtoService.buscarClientePorNome(nome);
-    ClienteResponse response = new ClienteResponse(entity);
+  public ResponseEntity<List<ClienteResponse>> buscarCliente(@RequestParam(value = "nome") String nome) {
+    List<ClienteEntity> entities = this.produtoService.buscarClientesPorNome(nome);
+    List<ClienteResponse> response = entities.stream().map(ClienteResponse::new).toList();
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @Operation(summary = "Buscar todos os clientes")
   @GetMapping
-  public ResponseEntity<List<ClienteResponse>> buscarClientes() {
-    List<ClienteEntity> entities = this.produtoService.buscarClientes();
+  public ResponseEntity<List<ClienteResponse>> buscarTodosClientes() {
+    List<ClienteEntity> entities = this.produtoService.buscarTodosClientes();
     List<ClienteResponse> responses = entities.stream().map(ClienteResponse::new).toList();
 
     return ResponseEntity.status(HttpStatus.OK).body(responses);

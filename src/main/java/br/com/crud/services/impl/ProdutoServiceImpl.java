@@ -32,9 +32,8 @@ public class ProdutoServiceImpl implements ProdutoService {
   }
 
   @Override
-  public ProdutoEntity buscarProdutoPorNome(String nome) {
-    return produtoRepository.findByNome(nome)
-      .orElseThrow(() -> new ServiceException("Não foi encontrado produto com nome parecido a '%s'.".formatted(nome)));
+  public List<ProdutoEntity> buscarProdutosPorNome(String nome) {
+    return produtoRepository.findAllByNome(nome);
   }
 
   @Override

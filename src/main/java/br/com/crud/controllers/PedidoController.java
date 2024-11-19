@@ -58,8 +58,8 @@ public class PedidoController {
 
   @Operation(summary = "Buscar todos os pedidos")
   @GetMapping
-  public ResponseEntity<List<PedidoResponse>> buscarPedidos() {
-    List<PedidoEntity> entities = this.produtoService.buscarPedidos();
+  public ResponseEntity<List<PedidoResponse>> buscarTodosPedidos() {
+    List<PedidoEntity> entities = this.produtoService.buscarTodosPedidos();
     List<PedidoResponse> responses = entities.stream().map(PedidoResponse::new).toList();
 
     return ResponseEntity.status(HttpStatus.OK).body(responses);

@@ -11,7 +11,7 @@ public interface PedidoService {
 
   PedidoEntity buscarPedido(Long id);
 
-  List<PedidoEntity> buscarPedidos();
+  List<PedidoEntity> buscarTodosPedidos();
 
   List<PedidoEntity> buscarPedidosPorCliente(Long clienteId);
 

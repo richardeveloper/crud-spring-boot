@@ -49,9 +49,9 @@ public class ProdutoController {
 
   @Operation(summary = "Buscar produto pelo nome")
   @GetMapping(value = "/nome")
-  public ResponseEntity<ProdutoResponse> buscarCliente(@RequestParam(value = "nome") String nome) {
-    ProdutoEntity entity = this.produtoService.buscarProdutoPorNome(nome);
-    ProdutoResponse response = new ProdutoResponse(entity);
+  public ResponseEntity<List<ProdutoResponse>> buscarProduto(@RequestParam(value = "nome") String nome) {
+    List<ProdutoEntity> entities = this.produtoService.buscarProdutosPorNome(nome);
+    List<ProdutoResponse> response = entities.stream().map(ProdutoResponse::new).toList();
 
     return ResponseEntity.status(HttpStatus.OK).body(response);
   }
@@ -60,9 +60,9 @@ public class ProdutoController {
   @GetMapping
   public ResponseEntity<List<ProdutoResponse>> buscarProdutos() {
     List<ProdutoEntity> entities = this.produtoService.buscarProdutos();
-    List<ProdutoResponse> responses = entities.stream().map(ProdutoResponse::new).toList();
+    List<ProdutoResponse> response = entities.stream().map(ProdutoResponse::new).toList();
 
-    return ResponseEntity.status(HttpStatus.OK).body(responses);
+    return ResponseEntity.status(HttpStatus.OK).body(response);
   }
 
   @Operation(summary = "Editar produto existente")

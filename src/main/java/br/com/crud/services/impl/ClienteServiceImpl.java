@@ -33,13 +33,12 @@ public class ClienteServiceImpl implements ClienteService {
   }
 
   @Override
-  public ClienteEntity buscarClientePorNome(String nome) {
-    return clienteRepository.findByNome(nome)
-      .orElseThrow(() -> new ServiceException("Não foi encontrado cliente com nome parecido a '%s'.".formatted(nome)));
+  public List<ClienteEntity> buscarClientesPorNome(String nome) {
+    return clienteRepository.findAllByNome(nome);
   }
 
   @Override
-  public List<ClienteEntity> buscarClientes() {
+  public List<ClienteEntity> buscarTodosClientes() {
     return clienteRepository.findAll();
   }
 

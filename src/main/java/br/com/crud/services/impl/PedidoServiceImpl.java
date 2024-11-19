@@ -53,7 +53,7 @@ public class PedidoServiceImpl implements PedidoService {
   }
 
   @Override
-  public List<PedidoEntity> buscarPedidos() {
+  public List<PedidoEntity> buscarTodosPedidos() {
     return pedidoRepository.findAll();
   }
 

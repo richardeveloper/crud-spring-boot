@@ -11,7 +11,7 @@ public interface ProdutoService {
 
   ProdutoEntity buscarProduto(Long id);
 
-  ProdutoEntity buscarProdutoPorNome(String nome);
+  List<ProdutoEntity> buscarProdutosPorNome(String nome);
 
   List<ProdutoEntity> buscarProdutos();
 

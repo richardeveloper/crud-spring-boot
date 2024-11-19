@@ -11,9 +11,9 @@ public interface ClienteService {
 
   ClienteEntity buscarCliente(Long id);
 
-  ClienteEntity buscarClientePorNome(String nome);
+  List<ClienteEntity> buscarClientesPorNome(String nome);
 
-  List<ClienteEntity> buscarClientes();
+  List<ClienteEntity> buscarTodosClientes();
 
   ClienteEntity editarCliente(Long id, ClienteResquest resquest);
 
