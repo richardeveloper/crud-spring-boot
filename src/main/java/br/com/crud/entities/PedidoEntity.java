@@ -9,10 +9,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +46,9 @@ public class PedidoEntity {
 
   @Column(name = "VALOR_TOTAL")
   private BigDecimal valorTotal;
+
+  @Column(name = "DATA_PEDIDO")
+  private LocalDateTime dataPedido;
 
   public void calcularValorTotal() {
     this.valorTotal = this.produtos.stream()

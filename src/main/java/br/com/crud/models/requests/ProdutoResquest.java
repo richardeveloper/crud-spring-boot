@@ -29,4 +29,8 @@ public class ProdutoResquest {
   @Min(value = 0, message = "O campo preço não pode ser negativo.")
   private BigDecimal preco;
 
+  @Schema(description = "URL da imagem")
+  @NotNull(message = "O campo urlImagem deve ser preenchido.")
+  private String urlImagem;
+
 }

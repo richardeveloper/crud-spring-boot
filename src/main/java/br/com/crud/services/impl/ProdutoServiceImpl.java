@@ -8,20 +8,25 @@ import br.com.crud.services.ProdutoService;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
 
-  @Autowired
-  private ProdutoRepository produtoRepository;
+  private final ProdutoRepository produtoRepository;
+
+  public ProdutoServiceImpl(ProdutoRepository produtoRepository) {
+    this.produtoRepository = produtoRepository;
+  }
 
   @Override
   public ProdutoEntity cadastrarProduto(ProdutoResquest resquest) {
+    validarCampos(resquest);
+
     ProdutoEntity produtoEntity = new ProdutoEntity();
     produtoEntity.setNome(resquest.getNome());
     produtoEntity.setPreco(resquest.getPreco());
+    produtoEntity.setUrlImagem(resquest.getUrlImagem());
 
     return produtoRepository.save(produtoEntity);
   }
@@ -45,6 +50,8 @@ public class ProdutoServiceImpl implements ProdutoService {
   public ProdutoEntity editarProduto(Long id, ProdutoResquest resquest) {
     ProdutoEntity produtoEntity = buscarProdutoPorId(id);
 
+    validarCampos(resquest);
+
     if (resquest.getNome() != null) {
       produtoEntity.setNome(resquest.getNome());
     }
@@ -66,6 +73,12 @@ public class ProdutoServiceImpl implements ProdutoService {
   private ProdutoEntity buscarProdutoPorId(Long id) {
     return produtoRepository.findById(id)
       .orElseThrow(() -> new ServiceException("Não foi encontrado produto para o id informado."));
+  }
+
+  private void validarCampos(ProdutoResquest resquest) {
+    if (produtoRepository.existsByNome(resquest.getNome())) {
+      throw new ServiceException("O nome %s já está sendo utilizado.".formatted(resquest.getNome()));
+    }
   }
 
 }

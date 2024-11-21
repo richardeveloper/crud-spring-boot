@@ -32,4 +32,7 @@ public class ProdutoEntity {
   @Column(name = "PRECO")
   private BigDecimal preco;
 
+  @Column(name = "URL_IMAGEM", columnDefinition = "TEXT")
+  private String urlImagem;
+
 }

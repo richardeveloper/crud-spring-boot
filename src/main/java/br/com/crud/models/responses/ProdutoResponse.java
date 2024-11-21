@@ -21,10 +21,13 @@ public class ProdutoResponse {
 
   private BigDecimal preco;
 
+  private String urlImagem;
+
   public ProdutoResponse(ProdutoEntity produtoEntity) {
     this.id = produtoEntity.getId();
     this.nome = produtoEntity.getNome();
     this.preco = produtoEntity.getPreco();
+    this.urlImagem = produtoEntity.getUrlImagem();
   }
 
 }

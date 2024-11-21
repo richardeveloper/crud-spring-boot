@@ -6,11 +6,11 @@ import br.com.crud.models.responses.ClienteResponse;
 import br.com.crud.services.ClienteService;
 
 import io.swagger.v3.oas.annotations.Operation;
+
 import jakarta.validation.Valid;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,8 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/services/clientes")
 public class ClienteController {
 
-  @Autowired
-  private ClienteService produtoService;
+  private final ClienteService produtoService;
+
+  public ClienteController(ClienteService produtoService) {
+    this.produtoService = produtoService;
+  }
 
   @Operation(summary = "Cadastrar novo cliente")
   @PostMapping
@@ -50,7 +53,7 @@ public class ClienteController {
 
   @Operation(summary = "Buscar cliente pelo nome")
   @GetMapping(value = "/nome")
-  public ResponseEntity<List<ClienteResponse>> buscarCliente(@RequestParam(value = "nome") String nome) {
+  public ResponseEntity<List<ClienteResponse>> buscarClientesPorNome(@RequestParam(value = "nome") String nome) {
     List<ClienteEntity> entities = this.produtoService.buscarClientesPorNome(nome);
     List<ClienteResponse> response = entities.stream().map(ClienteResponse::new).toList();
 

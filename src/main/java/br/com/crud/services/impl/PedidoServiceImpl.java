@@ -10,29 +10,34 @@ import br.com.crud.repositories.ProdutoRepository;
 import br.com.crud.models.requests.PedidoResquest;
 import br.com.crud.services.PedidoService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PedidoServiceImpl implements PedidoService {
 
-  @Autowired
-  private PedidoRepository pedidoRepository;
+  private final PedidoRepository pedidoRepository;
 
-  @Autowired
-  private ClienteRepository clienteRepository;
+  private final ClienteRepository clienteRepository;
 
-  @Autowired
-  private ProdutoRepository produtoRepository;
+  private final ProdutoRepository produtoRepository;
+
+  public PedidoServiceImpl(PedidoRepository pedidoRepository, ClienteRepository clienteRepository,
+    ProdutoRepository produtoRepository) {
+
+    this.pedidoRepository = pedidoRepository;
+    this.clienteRepository = clienteRepository;
+    this.produtoRepository = produtoRepository;
+  }
 
   @Override
   public PedidoEntity cadastrarPedido(PedidoResquest resquest) {
     if (resquest.getProdutoIds().isEmpty()) {
-      throw new ServiceException("É obrigatório informar os produtos do pedido.");
+      throw new ServiceException("É obrigatório incluir ao menos 1 produto no pedido.");
     }
 
     ClienteEntity clienteEntity = buscarClientePorId(resquest.getClienteId());
@@ -43,6 +48,7 @@ public class PedidoServiceImpl implements PedidoService {
     pedidoEntity.setCliente(clienteEntity);
     pedidoEntity.setProdutos(produtoEntities);
     pedidoEntity.calcularValorTotal();
+    pedidoEntity.setDataPedido(LocalDateTime.now());
 
     return pedidoRepository.save(pedidoEntity);
   }

@@ -6,10 +6,10 @@ import br.com.crud.models.responses.ProdutoResponse;
 import br.com.crud.services.ProdutoService;
 
 import io.swagger.v3.oas.annotations.Operation;
+
 import jakarta.validation.Valid;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,8 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/services/produtos")
 public class ProdutoController {
 
-  @Autowired
-  private ProdutoService produtoService;
+  private final ProdutoService produtoService;
+
+  public ProdutoController(ProdutoService produtoService) {
+    this.produtoService = produtoService;
+  }
 
   @Operation(summary = "Cadastrar novo produto")
   @PostMapping
@@ -49,7 +52,7 @@ public class ProdutoController {
 
   @Operation(summary = "Buscar produto pelo nome")
   @GetMapping(value = "/nome")
-  public ResponseEntity<List<ProdutoResponse>> buscarProduto(@RequestParam(value = "nome") String nome) {
+  public ResponseEntity<List<ProdutoResponse>> buscarProdutosPorNome(@RequestParam(value = "nome") String nome) {
     List<ProdutoEntity> entities = this.produtoService.buscarProdutosPorNome(nome);
     List<ProdutoResponse> response = entities.stream().map(ProdutoResponse::new).toList();
 

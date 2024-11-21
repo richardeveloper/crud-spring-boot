@@ -6,23 +6,29 @@ import br.com.crud.repositories.ClienteRepository;
 import br.com.crud.models.requests.ClienteResquest;
 import br.com.crud.services.ClienteService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
-  @Autowired
-  private ClienteRepository clienteRepository;
+  private final ClienteRepository clienteRepository;
+
+  public ClienteServiceImpl(ClienteRepository clienteRepository) {
+    this.clienteRepository = clienteRepository;
+  }
 
   @Override
   public ClienteEntity cadastrarCliente(ClienteResquest resquest) {
+    validarCampos(resquest);
+
     ClienteEntity clienteEntity = new ClienteEntity();
     clienteEntity.setNome(resquest.getNome());
     clienteEntity.setEmail(resquest.getEmail());
     clienteEntity.setTelefone(resquest.getTelefone());
+    clienteEntity.setDataCadastro(LocalDateTime.now());
 
     return clienteRepository.save(clienteEntity);
   }
@@ -45,6 +51,8 @@ public class ClienteServiceImpl implements ClienteService {
   @Override
   public ClienteEntity editarCliente(Long id, ClienteResquest resquest) {
     ClienteEntity clienteEntity = buscarClientePorId(id);
+
+    validarCampos(resquest);
 
     if (resquest.getNome() != null) {
       clienteEntity.setNome(resquest.getNome());
@@ -71,6 +79,20 @@ public class ClienteServiceImpl implements ClienteService {
   private ClienteEntity buscarClientePorId(Long id) {
     return clienteRepository.findById(id)
       .orElseThrow(() -> new ServiceException("Não foi encontrado cliente para o id informado."));
+  }
+
+  private void validarCampos(ClienteResquest resquest) {
+    if (clienteRepository.existsByNome(resquest.getNome())) {
+      throw new ServiceException("O nome %s já está sendo utilizado.".formatted(resquest.getNome()));
+    }
+
+    if (clienteRepository.existsByEmail(resquest.getEmail())) {
+      throw new ServiceException("O e-mail %s já está sendo utilizado.".formatted(resquest.getEmail()));
+    }
+
+    if (clienteRepository.existsByTelefone(resquest.getTelefone())) {
+      throw new ServiceException("O telefone %s já está sendo utilizado.".formatted(resquest.getTelefone()));
+    }
   }
 
 }
