@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import br.com.crud.entities.ProdutoEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ProdutoRepository;
-import br.com.crud.models.requests.ProdutoResquest;
+import br.com.crud.models.requests.ProdutoRequest;
 
 import java.math.BigDecimal;
 
@@ -53,7 +53,7 @@ class ProdutoServiceImplTest {
 
   @Test
   public void cadastrarProduto_deveCadastrarProdutoComSucesso() {
-    ProdutoResquest resquest = new ProdutoResquest();
+    ProdutoRequest resquest = new ProdutoRequest();
     resquest.setNome("Produto");
     resquest.setPreco(new BigDecimal("100.00"));
 
@@ -106,7 +106,7 @@ class ProdutoServiceImplTest {
 
     List<ProdutoEntity> entitites = List.of(entity, entity2);
 
-    when(produtoRepository.findAll()).thenReturn(entitites);
+    when(produtoRepository.findAllOrderById()).thenReturn(entitites);
 
     List<ProdutoEntity> produtos = produtoService.buscarProdutos();
 
@@ -122,7 +122,7 @@ class ProdutoServiceImplTest {
 
   @Test
   public void editarProduto_deveEditarTodosCamposComSucesso() {
-    ProdutoResquest resquest = new ProdutoResquest();
+    ProdutoRequest resquest = new ProdutoRequest();
     resquest.setNome("Produto Atualizacao");
     resquest.setPreco(new BigDecimal("50.00"));
 
@@ -141,7 +141,7 @@ class ProdutoServiceImplTest {
 
   @Test
   public void editarProduto_deveEditarCampoNomeComSucesso() {
-    ProdutoResquest resquest = new ProdutoResquest();
+    ProdutoRequest resquest = new ProdutoRequest();
     resquest.setNome("Produto Atualizacao");
 
     when(produtoRepository.findById(id)).thenReturn(Optional.of(entity));
@@ -157,7 +157,7 @@ class ProdutoServiceImplTest {
 
   @Test
   public void editarProduto_deveEditarCampoPrecoComSucesso() {
-    ProdutoResquest resquest = new ProdutoResquest();
+    ProdutoRequest resquest = new ProdutoRequest();
     resquest.setPreco(new BigDecimal("25.00"));
 
     when(produtoRepository.findById(id)).thenReturn(Optional.of(entity));
@@ -176,7 +176,7 @@ class ProdutoServiceImplTest {
     when(produtoRepository.findById(id)).thenReturn(Optional.empty());
 
     ServiceException exception = assertThrows(ServiceException.class,
-      () -> produtoService.editarProduto(id, new ProdutoResquest()));
+      () -> produtoService.editarProduto(id, new ProdutoRequest()));
 
     String message = "Não foi encontrado produto para o id informado.";
 

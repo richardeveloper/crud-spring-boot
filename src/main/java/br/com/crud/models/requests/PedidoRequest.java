@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Modelo do pedido")
-public class PedidoResquest {
+public class PedidoRequest {
 
   @Schema(description = "Id do cliente", example = "1")
   @NotNull(message = "O campo clienteId deve ser preenchido.")

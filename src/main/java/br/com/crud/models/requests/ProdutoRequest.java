@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Modelo do produto")
-public class ProdutoResquest {
+public class ProdutoRequest {
 
   @Schema(description = "Nome do produto", example = "Apple Watch SE")
   @NotBlank(message = "O campo nome deve ser preenchido.")

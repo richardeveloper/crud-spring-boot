@@ -18,7 +18,10 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
   boolean existsByTelefone(String telefone);
 
-  @Query(value = "SELECT cliente FROM ClienteEntity cliente WHERE UPPER(cliente.nome) LIKE UPPER(CONCAT('%', :nome, '%'))")
+  @Query(value = "SELECT cliente FROM ClienteEntity cliente WHERE UPPER(cliente.nome) LIKE UPPER(CONCAT('%', :nome, '%')) ORDER BY cliente.id")
   List<ClienteEntity> findAllByNome(@Param("nome") String nome);
+
+  @Query(value = "SELECT cliente FROM ClienteEntity cliente ORDER BY cliente.id")
+  List<ClienteEntity> findAllOrderById();
 
 }

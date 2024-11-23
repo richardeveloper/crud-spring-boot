@@ -1,7 +1,7 @@
 package br.com.crud.controllers;
 
 import br.com.crud.entities.ClienteEntity;
-import br.com.crud.models.requests.ClienteResquest;
+import br.com.crud.models.requests.ClienteRequest;
 import br.com.crud.models.responses.ClienteResponse;
 import br.com.crud.services.ClienteService;
 
@@ -35,7 +35,7 @@ public class ClienteController {
 
   @Operation(summary = "Cadastrar novo cliente")
   @PostMapping
-  public ResponseEntity<ClienteResponse> cadastrarCliente(@RequestBody @Valid ClienteResquest resquest) {
+  public ResponseEntity<ClienteResponse> cadastrarCliente(@RequestBody @Valid ClienteRequest resquest) {
     ClienteEntity entity = this.produtoService.cadastrarCliente(resquest);
     ClienteResponse response = new ClienteResponse(entity);
 
@@ -71,7 +71,7 @@ public class ClienteController {
 
   @Operation(summary = "Editar cliente existente")
   @PutMapping(value = "/{id}")
-  public ResponseEntity<ClienteResponse> editarCliente(@PathVariable(value = "id") Long id, @RequestBody @Valid ClienteResquest resquest) {
+  public ResponseEntity<ClienteResponse> editarCliente(@PathVariable(value = "id") Long id, @RequestBody @Valid ClienteRequest resquest) {
     ClienteEntity entity = this.produtoService.editarCliente(id, resquest);
     ClienteResponse response = new ClienteResponse(entity);
 

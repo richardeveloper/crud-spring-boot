@@ -3,7 +3,7 @@ package br.com.crud.services.impl;
 import br.com.crud.entities.ClienteEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
-import br.com.crud.models.requests.ClienteResquest;
+import br.com.crud.models.requests.ClienteRequest;
 import br.com.crud.services.ClienteService;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ public class ClienteServiceImpl implements ClienteService {
   }
 
   @Override
-  public ClienteEntity cadastrarCliente(ClienteResquest resquest) {
+  public ClienteEntity cadastrarCliente(ClienteRequest resquest) {
     validarCampos(resquest);
 
     ClienteEntity clienteEntity = new ClienteEntity();
@@ -45,25 +45,35 @@ public class ClienteServiceImpl implements ClienteService {
 
   @Override
   public List<ClienteEntity> buscarTodosClientes() {
-    return clienteRepository.findAll();
+    return clienteRepository.findAllOrderById();
   }
 
   @Override
-  public ClienteEntity editarCliente(Long id, ClienteResquest resquest) {
+  public ClienteEntity editarCliente(Long id, ClienteRequest request) {
     ClienteEntity clienteEntity = buscarClientePorId(id);
 
-    validarCampos(resquest);
+    if (!clienteEntity.getNome().equalsIgnoreCase(request.getNome())) {
+      if (clienteRepository.existsByNome(request.getNome())) {
+        throw new ServiceException("O nome %s já está sendo utilizado.".formatted(request.getNome()));
+      }
 
-    if (resquest.getNome() != null) {
-      clienteEntity.setNome(resquest.getNome());
+      clienteEntity.setNome(request.getNome());
     }
 
-    if (resquest.getEmail() != null) {
-      clienteEntity.setEmail(resquest.getEmail());
+    if (!clienteEntity.getEmail().equalsIgnoreCase(request.getEmail())) {
+      if (clienteRepository.existsByEmail(request.getEmail())) {
+        throw new ServiceException("O e-mail %s já está sendo utilizado.".formatted(request.getEmail()));
+      }
+
+      clienteEntity.setEmail(request.getEmail());
     }
 
-    if (resquest.getTelefone() != null) {
-      clienteEntity.setTelefone(resquest.getTelefone());
+    if (!clienteEntity.getTelefone().equalsIgnoreCase(request.getTelefone())) {
+      if (clienteRepository.existsByTelefone(request.getTelefone())) {
+        throw new ServiceException("O telefone %s já está sendo utilizado.".formatted(request.getTelefone()));
+      }
+
+      clienteEntity.setTelefone(request.getTelefone());
     }
 
     return clienteRepository.save(clienteEntity);
@@ -81,17 +91,17 @@ public class ClienteServiceImpl implements ClienteService {
       .orElseThrow(() -> new ServiceException("Não foi encontrado cliente para o id informado."));
   }
 
-  private void validarCampos(ClienteResquest resquest) {
-    if (clienteRepository.existsByNome(resquest.getNome())) {
-      throw new ServiceException("O nome %s já está sendo utilizado.".formatted(resquest.getNome()));
+  private void validarCampos(ClienteRequest request) {
+    if (clienteRepository.existsByNome(request.getNome())) {
+      throw new ServiceException("O nome %s já está sendo utilizado.".formatted(request.getNome()));
     }
 
-    if (clienteRepository.existsByEmail(resquest.getEmail())) {
-      throw new ServiceException("O e-mail %s já está sendo utilizado.".formatted(resquest.getEmail()));
+    if (clienteRepository.existsByEmail(request.getEmail())) {
+      throw new ServiceException("O e-mail %s já está sendo utilizado.".formatted(request.getEmail()));
     }
 
-    if (clienteRepository.existsByTelefone(resquest.getTelefone())) {
-      throw new ServiceException("O telefone %s já está sendo utilizado.".formatted(resquest.getTelefone()));
+    if (clienteRepository.existsByTelefone(request.getTelefone())) {
+      throw new ServiceException("O telefone %s já está sendo utilizado.".formatted(request.getTelefone()));
     }
   }
 

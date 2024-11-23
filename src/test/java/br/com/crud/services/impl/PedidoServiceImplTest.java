@@ -17,7 +17,7 @@ import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
 import br.com.crud.repositories.PedidoRepository;
 import br.com.crud.repositories.ProdutoRepository;
-import br.com.crud.models.requests.PedidoResquest;
+import br.com.crud.models.requests.PedidoRequest;
 
 import java.math.BigDecimal;
 
@@ -81,7 +81,7 @@ class PedidoServiceImplTest {
 
   @Test
   public void cadastrarPedido_deveLancarExcecaoQuandoListaProdutosVazia() {
-    PedidoResquest resquest = new PedidoResquest();
+    PedidoRequest resquest = new PedidoRequest();
     resquest.setClienteId(clienteEntity.getId());
     resquest.setProdutoIds(List.of());
 
@@ -94,7 +94,7 @@ class PedidoServiceImplTest {
 
   @Test
   public void cadastrarPedido_deveCadastrarPedidoComSucesso() {
-    PedidoResquest resquest = new PedidoResquest();
+    PedidoRequest resquest = new PedidoRequest();
     resquest.setClienteId(1L);
     resquest.setProdutoIds(List.of(1L));
 
@@ -120,7 +120,7 @@ class PedidoServiceImplTest {
 
   @Test
   public void cadastrarPedido_deveLancarExcecaoQuandoClienteNaoEncontrado() {
-    PedidoResquest resquest = new PedidoResquest();
+    PedidoRequest resquest = new PedidoRequest();
     resquest.setClienteId(clienteEntity.getId());
     resquest.setProdutoIds(produtoEntities.stream().map(ProdutoEntity::getId).toList());
 
@@ -240,7 +240,7 @@ class PedidoServiceImplTest {
 
   @Test
   public void editarPedido_deveEditarTodosCamposComSucesso() {
-    PedidoResquest resquest = new PedidoResquest();
+    PedidoRequest resquest = new PedidoRequest();
     resquest.setClienteId(1L);
     resquest.setProdutoIds(List.of(1L, 2L));
 
@@ -283,7 +283,7 @@ class PedidoServiceImplTest {
     when(clienteRepository.findById(pedidoId)).thenReturn(Optional.empty());
 
     ServiceException exception = assertThrows(ServiceException.class,
-      () -> pedidoService.editarPedido(pedidoId, new PedidoResquest()));
+      () -> pedidoService.editarPedido(pedidoId, new PedidoRequest()));
 
     String message = "Não foi encontrado cliente para o id informado.";
 
@@ -292,7 +292,7 @@ class PedidoServiceImplTest {
 
   @Test
   public void editarPedido_deveLancarExcecaoQuandoProdutoNaoEncontrado() {
-    PedidoResquest resquest = new PedidoResquest();
+    PedidoRequest resquest = new PedidoRequest();
     resquest.setClienteId(1L);
     resquest.setProdutoIds(List.of(1L, 2L, 3L));
 
@@ -315,7 +315,7 @@ class PedidoServiceImplTest {
     when(pedidoRepository.findById(pedidoId)).thenReturn(Optional.empty());
 
     ServiceException exception = assertThrows(ServiceException.class,
-      () -> pedidoService.editarPedido(pedidoId, new PedidoResquest()));
+      () -> pedidoService.editarPedido(pedidoId, new PedidoRequest()));
 
     String message = "Não foi encontrado pedido para o id informado.";
 

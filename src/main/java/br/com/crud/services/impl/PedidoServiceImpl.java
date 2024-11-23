@@ -7,7 +7,7 @@ import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
 import br.com.crud.repositories.PedidoRepository;
 import br.com.crud.repositories.ProdutoRepository;
-import br.com.crud.models.requests.PedidoResquest;
+import br.com.crud.models.requests.PedidoRequest;
 import br.com.crud.services.PedidoService;
 
 import java.time.LocalDateTime;
@@ -35,7 +35,7 @@ public class PedidoServiceImpl implements PedidoService {
   }
 
   @Override
-  public PedidoEntity cadastrarPedido(PedidoResquest resquest) {
+  public PedidoEntity cadastrarPedido(PedidoRequest resquest) {
     if (resquest.getProdutoIds().isEmpty()) {
       throw new ServiceException("É obrigatório incluir ao menos 1 produto no pedido.");
     }
@@ -60,18 +60,18 @@ public class PedidoServiceImpl implements PedidoService {
 
   @Override
   public List<PedidoEntity> buscarTodosPedidos() {
-    return pedidoRepository.findAll();
+    return pedidoRepository.findAllOrderByDataPedidoDesc();
   }
 
   @Override
   public List<PedidoEntity> buscarPedidosPorCliente(Long clienteId) {
     ClienteEntity clienteEntity = buscarClientePorId(clienteId);
 
-    return pedidoRepository.findByCliente(clienteEntity);
+    return pedidoRepository.findByClienteOrderByDataPedidoDesc(clienteEntity);
   }
 
   @Override
-  public PedidoEntity editarPedido(Long id, PedidoResquest resquest) {
+  public PedidoEntity editarPedido(Long id, PedidoRequest resquest) {
     PedidoEntity pedidoEntity = buscarPedidoPorId(id);
 
     buscarClientePorId(resquest.getClienteId());
@@ -101,7 +101,7 @@ public class PedidoServiceImpl implements PedidoService {
       .orElseThrow(() -> new ServiceException("Não foi encontrado cliente para o id informado."));
   }
 
-  private List<ProdutoEntity> recuperarProdutos(PedidoResquest resquest) {
+  private List<ProdutoEntity> recuperarProdutos(PedidoRequest resquest) {
     List<ProdutoEntity> produtoEntities = new ArrayList<>();
     List<Long> produtosNaoEncontrados = new ArrayList<>();
 

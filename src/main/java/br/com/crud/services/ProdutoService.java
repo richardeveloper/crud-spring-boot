@@ -1,13 +1,13 @@
 package br.com.crud.services;
 
 import br.com.crud.entities.ProdutoEntity;
-import br.com.crud.models.requests.ProdutoResquest;
+import br.com.crud.models.requests.ProdutoRequest;
 
 import java.util.List;
 
 public interface ProdutoService {
 
-  ProdutoEntity cadastrarProduto(ProdutoResquest resquest);
+  ProdutoEntity cadastrarProduto(ProdutoRequest resquest);
 
   ProdutoEntity buscarProduto(Long id);
 
@@ -15,7 +15,7 @@ public interface ProdutoService {
 
   List<ProdutoEntity> buscarProdutos();
 
-  ProdutoEntity editarProduto(Long id, ProdutoResquest resquest);
+  ProdutoEntity editarProduto(Long id, ProdutoRequest resquest);
 
   void apagarProduto(Long id);
 

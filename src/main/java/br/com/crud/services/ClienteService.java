@@ -1,13 +1,13 @@
 package br.com.crud.services;
 
 import br.com.crud.entities.ClienteEntity;
-import br.com.crud.models.requests.ClienteResquest;
+import br.com.crud.models.requests.ClienteRequest;
 
 import java.util.List;
 
 public interface ClienteService {
 
-  ClienteEntity cadastrarCliente(ClienteResquest resquest);
+  ClienteEntity cadastrarCliente(ClienteRequest resquest);
 
   ClienteEntity buscarCliente(Long id);
 
@@ -15,7 +15,7 @@ public interface ClienteService {
 
   List<ClienteEntity> buscarTodosClientes();
 
-  ClienteEntity editarCliente(Long id, ClienteResquest resquest);
+  ClienteEntity editarCliente(Long id, ClienteRequest resquest);
 
   void apagarCliente(Long id);
 

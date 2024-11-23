@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Modelo do cliente")
-public class ClienteResquest {
+public class ClienteRequest {
 
   @Schema(description = "Nome do cliente", example = "Franz Kafka")
   @NotBlank(message = "O campo nome deve ser preenchido.")

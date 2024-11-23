@@ -132,25 +132,11 @@ public class SetUpConfig implements CommandLineRunner {
       "https://m.media-amazon.com/images/I/81gTTc2IpCL._AC_UF1000,1000_QL80_.jpg"
     );
 
-    ProdutoEntity p7 = new ProdutoEntity(
-      null,
-      "Pokemon Scarlet",
-      new BigDecimal("299.99"),
-      "https://m.media-amazon.com/images/I/716zACUZG+L.jpg"
-    );
-
     ProdutoEntity p8 = new ProdutoEntity(
       null,
       "Mario Strikers Battle League",
       new BigDecimal("299.99"),
       "https://m.media-amazon.com/images/I/71Hlbr-w6JL._AC_UF1000,1000_QL80_.jpg"
-    );
-
-    ProdutoEntity p9 = new ProdutoEntity(
-      null,
-      "Mario + Rabbids Sparks of Hope",
-      new BigDecimal("239.99"),
-      "https://m.media-amazon.com/images/I/81WMAWjtPnL.jpg"
     );
 
     ProdutoEntity p10 = new ProdutoEntity(
@@ -165,20 +151,6 @@ public class SetUpConfig implements CommandLineRunner {
       "Pokemon Let's Go Pikachu",
       new BigDecimal("299.99"),
       "https://m.media-amazon.com/images/I/71w18E60zzL.jpg"
-    );
-
-    ProdutoEntity p12 = new ProdutoEntity(
-      null,
-      "Mario Party Superstars",
-      new BigDecimal("299.99"),
-      "https://m.media-amazon.com/images/I/91LqNrkm6cL.jpg"
-    );
-
-    ProdutoEntity p13 = new ProdutoEntity(
-      null,
-      "Super Bomberman R",
-      new BigDecimal("99.99"),
-      "https://m.media-amazon.com/images/I/91-HgXWeGRL._AC_UF1000,1000_QL80_.jpg"
     );
 
     ProdutoEntity p14 = new ProdutoEntity(
@@ -198,18 +170,12 @@ public class SetUpConfig implements CommandLineRunner {
 
     ProdutoEntity p16 = new ProdutoEntity(
       null,
-      "Pokemon Legend Arceus",
+      "Pokemon Sword",
       new BigDecimal("299.99"),
-      "https://m.media-amazon.com/images/I/71bhNf8QiOS.jpg"
+      "https://m.media-amazon.com/images/I/81F1eKUToxL.jpg"
     );
 
-    ProdutoEntity p17 = new ProdutoEntity(
-      null,
-      "Super Mario Maker 2",
-      new BigDecimal("299.99"),
-      "https://m.media-amazon.com/images/I/71WHPxzenhL.jpg"
-    );
 
-    return List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17);
+    return List.of(p1, p2, p3, p4, p5, p6, p8, p10, p11, p14, p15, p16);
   }
 }

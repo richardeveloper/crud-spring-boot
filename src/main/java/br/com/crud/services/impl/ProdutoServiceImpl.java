@@ -3,7 +3,7 @@ package br.com.crud.services.impl;
 import br.com.crud.entities.ProdutoEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ProdutoRepository;
-import br.com.crud.models.requests.ProdutoResquest;
+import br.com.crud.models.requests.ProdutoRequest;
 import br.com.crud.services.ProdutoService;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class ProdutoServiceImpl implements ProdutoService {
   }
 
   @Override
-  public ProdutoEntity cadastrarProduto(ProdutoResquest resquest) {
+  public ProdutoEntity cadastrarProduto(ProdutoRequest resquest) {
     validarCampos(resquest);
 
     ProdutoEntity produtoEntity = new ProdutoEntity();
@@ -43,11 +43,11 @@ public class ProdutoServiceImpl implements ProdutoService {
 
   @Override
   public List<ProdutoEntity> buscarProdutos() {
-    return produtoRepository.findAll();
+    return produtoRepository.findAllOrderById();
   }
 
   @Override
-  public ProdutoEntity editarProduto(Long id, ProdutoResquest resquest) {
+  public ProdutoEntity editarProduto(Long id, ProdutoRequest resquest) {
     ProdutoEntity produtoEntity = buscarProdutoPorId(id);
 
     validarCampos(resquest);
@@ -75,7 +75,7 @@ public class ProdutoServiceImpl implements ProdutoService {
       .orElseThrow(() -> new ServiceException("Não foi encontrado produto para o id informado."));
   }
 
-  private void validarCampos(ProdutoResquest resquest) {
+  private void validarCampos(ProdutoRequest resquest) {
     if (produtoRepository.existsByNome(resquest.getNome())) {
       throw new ServiceException("O nome %s já está sendo utilizado.".formatted(resquest.getNome()));
     }

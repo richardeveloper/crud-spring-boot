@@ -14,6 +14,9 @@ public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
 
   boolean existsByNome(String nome);
 
-  @Query(value = "SELECT produto FROM ProdutoEntity produto WHERE UPPER(produto.nome) LIKE UPPER(CONCAT('%', :nome, '%'))")
+  @Query(value = "SELECT produto FROM ProdutoEntity produto WHERE UPPER(produto.nome) LIKE UPPER(CONCAT('%', :nome, '%')) ORDER BY produto.id")
   List<ProdutoEntity> findAllByNome(@Param("nome") String nome);
+
+  @Query(value = "SELECT produto FROM ProdutoEntity produto ORDER BY produto.id")
+  List<ProdutoEntity> findAllOrderById();
 }

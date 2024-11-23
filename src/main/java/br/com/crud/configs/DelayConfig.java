@@ -16,7 +16,7 @@ public class DelayConfig implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
     try {
-      Thread.sleep(1000);
+      Thread.sleep(500);
     }
     catch (InterruptedException e) {
       throw new RuntimeException(e);

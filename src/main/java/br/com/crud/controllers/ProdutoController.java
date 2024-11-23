@@ -1,7 +1,7 @@
 package br.com.crud.controllers;
 
 import br.com.crud.entities.ProdutoEntity;
-import br.com.crud.models.requests.ProdutoResquest;
+import br.com.crud.models.requests.ProdutoRequest;
 import br.com.crud.models.responses.ProdutoResponse;
 import br.com.crud.services.ProdutoService;
 
@@ -34,7 +34,7 @@ public class ProdutoController {
 
   @Operation(summary = "Cadastrar novo produto")
   @PostMapping
-  public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoResquest resquest) {
+  public ResponseEntity<ProdutoResponse> cadastrarProduto(@RequestBody @Valid ProdutoRequest resquest) {
     ProdutoEntity entity = this.produtoService.cadastrarProduto(resquest);
     ProdutoResponse response = new ProdutoResponse(entity);
 
@@ -70,7 +70,7 @@ public class ProdutoController {
 
   @Operation(summary = "Editar produto existente")
   @PutMapping(value = "/{id}")
-  public ResponseEntity<ProdutoResponse> editarProduto(@PathVariable Long id, @RequestBody @Valid ProdutoResquest resquest) {
+  public ResponseEntity<ProdutoResponse> editarProduto(@PathVariable Long id, @RequestBody @Valid ProdutoRequest resquest) {
     ProdutoEntity entity = this.produtoService.editarProduto(id, resquest);
     ProdutoResponse response = new ProdutoResponse(entity);
 

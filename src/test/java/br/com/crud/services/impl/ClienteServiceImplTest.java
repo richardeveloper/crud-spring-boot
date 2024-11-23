@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import br.com.crud.entities.ClienteEntity;
 import br.com.crud.exceptions.ServiceException;
 import br.com.crud.repositories.ClienteRepository;
-import br.com.crud.models.requests.ClienteResquest;
+import br.com.crud.models.requests.ClienteRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +53,7 @@ class ClienteServiceImplTest {
 
   @Test
   public void cadastrarCliente_deveCadastrarClienteComSucesso() {
-    ClienteResquest resquest = new ClienteResquest();
+    ClienteRequest resquest = new ClienteRequest();
     resquest.setNome("Cliente");
     resquest.setEmail("teste@email.com");
     resquest.setTelefone("99999999999");
@@ -129,7 +129,7 @@ class ClienteServiceImplTest {
 
   @Test
   public void editarCliente_deveEditarTodosCamposComSucesso() {
-    ClienteResquest resquest = new ClienteResquest();
+    ClienteRequest resquest = new ClienteRequest();
     resquest.setNome("Cliente Atualizacao");
     resquest.setEmail("teste.atualizacao@email.com");
     resquest.setTelefone("62987654321");
@@ -151,7 +151,7 @@ class ClienteServiceImplTest {
 
   @Test
   public void editarCliente_deveEditarCampoNomeComSucesso() {
-    ClienteResquest resquest = new ClienteResquest();
+    ClienteRequest resquest = new ClienteRequest();
     resquest.setNome("Cliente Atualizacao");
 
     when(clienteRepository.findById(id)).thenReturn(Optional.of(entity));
@@ -167,7 +167,7 @@ class ClienteServiceImplTest {
 
   @Test
   public void editarCliente_deveEditarCampoEmailComSucesso() {
-    ClienteResquest resquest = new ClienteResquest();
+    ClienteRequest resquest = new ClienteRequest();
     resquest.setEmail("teste.atualizacao@email.com");
 
     when(clienteRepository.findById(id)).thenReturn(Optional.of(entity));
@@ -183,7 +183,7 @@ class ClienteServiceImplTest {
 
   @Test
   public void editarCliente_deveEditarCampoTelefoneComSucesso() {
-    ClienteResquest resquest = new ClienteResquest();
+    ClienteRequest resquest = new ClienteRequest();
     resquest.setTelefone("62987654321");
 
     when(clienteRepository.findById(id)).thenReturn(Optional.of(entity));
@@ -202,7 +202,7 @@ class ClienteServiceImplTest {
     when(clienteRepository.findById(id)).thenReturn(Optional.empty());
 
     ServiceException exception = assertThrows(ServiceException.class,
-      () -> clienteService.editarCliente(id, new ClienteResquest()));
+      () -> clienteService.editarCliente(id, new ClienteRequest()));
 
     String message = "Não foi encontrado cliente para o id informado.";
 
