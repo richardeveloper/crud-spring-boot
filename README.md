@@ -51,4 +51,4 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 > ```
 >
 > **Documentação da API:**
-> > <a href="http://localhost:8080/swagger-ui" style="text-decoration: none;">Swagger UI</a>
+> > <a href="http://localhost:8080/api-docs" style="text-decoration: none;">OpenAPI</a>
