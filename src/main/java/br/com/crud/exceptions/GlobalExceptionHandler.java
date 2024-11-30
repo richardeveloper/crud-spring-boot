@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
   private String recoverViolationMessage(HttpServletRequest req, DataIntegrityViolationException ex) {
     if (ex.getMessage().contains("violates foreign key")) {
       String modelo = req.getRequestURI().contains("clientes") ? "cliente" : "produto";
-      return "Não é possível apagar o %s informado pois existem pedidos vínculados a ele.".formatted(modelo);
+      return "Não foi possível apagar o %s informado pois existem pedidos vínculados a ele.".formatted(modelo);
     }
 
     return ex.getMessage();

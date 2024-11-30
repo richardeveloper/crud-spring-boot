@@ -155,9 +155,9 @@ public class SetUpConfig implements CommandLineRunner {
 
     ProdutoEntity p10 = new ProdutoEntity(
       null,
-      "Mario vs. Donkey Kong",
-      new BigDecimal("299.99"),
-      "https://m.media-amazon.com/images/I/81GvdH1DjUL.jpg"
+      "Diablo 3",
+      new BigDecimal("189.99"),
+      "https://m.media-amazon.com/images/I/81lSSQv99NL.jpg"
     );
 
     ProdutoEntity p11 = new ProdutoEntity(
