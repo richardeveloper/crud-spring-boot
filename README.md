@@ -39,15 +39,15 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 > [!TIP]
 >
 > **Requisitos:**
-> - Java 17 ou superior
+> - Java
 > - PostgreSQL
 >
 > **Variáveis para conexão com banco de dados:**
 >
 > ```
-> export DB_URL="jdbc:postgresql://localhost:5432/banco_de_dados"
-> export DB_USERNAME="postgres"
-> export DB_PASSWORD="postgres"
+> DB_URL=jdbc:postgresql://localhost:5432/banco_de_dados
+> DB_USERNAME=postgres
+> DB_PASSWORD=postgres
 > ```
 >
 > **Documentação:**
