@@ -8,6 +8,8 @@
 
 </div>
 
+## Sumário
+
 ## Instruções
 
 <p align="justify">
@@ -38,11 +40,11 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 
 > [!TIP]
 >
-> **Requisitos:**
-> - Java
-> - PostgreSQL
+> **Tecnologias:**
+> - [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+> - [PostgreSQL](https://www.postgresql.org/)
 >
-> **Variáveis para conexão com banco de dados:**
+> **Variáveis de ambiente para conexão com banco de dados:**
 >
 > ```
 > DB_URL=jdbc:postgresql://localhost:5432/banco_de_dados
@@ -50,5 +52,3 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 > DB_PASSWORD=postgres
 > ```
 >
-> **Documentação:**
-> > <a href="http://localhost:8080/api-docs" style="text-decoration: none;">OpenAPI</a>
