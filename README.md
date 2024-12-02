@@ -8,8 +8,6 @@
 
 </div>
 
-## Sumário
-
 ## Instruções
 
 <p align="justify">
