@@ -45,8 +45,8 @@ Os controllers devem implementar endpoints para cada serviço implementado. O Sw
 > **Variáveis de ambiente para conexão com banco de dados:**
 >
 > ```
-> DB_URL=jdbc:postgresql://localhost:5432/banco_de_dados
-> DB_USERNAME=postgres
-> DB_PASSWORD=postgres
+> DB_URL=jdbc:postgresql://localhost:5432/database
+> DB_USERNAME=username
+> DB_PASSWORD=password
 > ```
 >
